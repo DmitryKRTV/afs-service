@@ -4,7 +4,7 @@ const app = express();
 const port = 4200;
 
 app.get("/", (req: Request, res: Response) => {
-  const helloMessage = "hello incubator!";
+  const helloMessage = "hello afs-service!";
   res.send(helloMessage);
 });
 
