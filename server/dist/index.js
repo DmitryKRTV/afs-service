@@ -18,12 +18,15 @@ const analytics_router_1 = require("./routes/analytics-router");
 const category_router_1 = require("./routes/category-router");
 const order_router_1 = require("./routes/order-router");
 const position_router_1 = require("./routes/position-router");
+const body_parser_1 = __importDefault(require("body-parser"));
 const app = (0, express_1.default)();
 const port = 5000;
 app.get("/", (req, res) => {
     const helloMessage = "Afs-service works!";
     res.status(200).send(helloMessage);
 });
+app.use(body_parser_1.default.urlencoded({ extended: true }));
+app.use(body_parser_1.default.json());
 app.use("/auth", auth_router_1.authRouter);
 app.use("/analytics", analytics_router_1.analyticsRouter);
 app.use("/category", category_router_1.categoryRouter);

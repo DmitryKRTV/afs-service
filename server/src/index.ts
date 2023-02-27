@@ -4,6 +4,7 @@ import { analyticsRouter } from "./routes/analytics-router";
 import { categoryRouter } from "./routes/category-router";
 import { orderRouter } from "./routes/order-router";
 import { positionRouter } from "./routes/position-router";
+import bodyParser from "body-parser";
 
 const app = express();
 const port = 5000;
@@ -12,6 +13,9 @@ app.get("/", (req: Request, res: Response) => {
   const helloMessage = "Afs-service works!";
   res.status(200).send(helloMessage);
 });
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use("/auth", authRouter);
 app.use("/analytics", analyticsRouter);
