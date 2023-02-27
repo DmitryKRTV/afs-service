@@ -1,0 +1,8 @@
+# Node
+/node_modules
+
+# IDEs and editors
+.idea/
+
+# Yarn
+yarn.lock

@@ -13,14 +13,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const body_parser_1 = __importDefault(require("body-parser"));
+const morgan_1 = __importDefault(require("morgan"));
+const cors_1 = __importDefault(require("cors"));
 const auth_router_1 = require("./routes/auth-router");
 const analytics_router_1 = require("./routes/analytics-router");
 const category_router_1 = require("./routes/category-router");
 const order_router_1 = require("./routes/order-router");
 const position_router_1 = require("./routes/position-router");
-const body_parser_1 = __importDefault(require("body-parser"));
 const app = (0, express_1.default)();
 const port = 5000;
+app.use((0, morgan_1.default)("dev"));
+app.use((0, cors_1.default)());
 app.get("/", (req, res) => {
     const helloMessage = "Afs-service works!";
     res.status(200).send(helloMessage);

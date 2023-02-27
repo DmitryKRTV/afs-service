@@ -1,13 +1,18 @@
 import express, { Request, Response } from "express";
+import bodyParser from "body-parser";
+import morgan from "morgan";
+import cors from "cors";
 import { authRouter } from "./routes/auth-router";
 import { analyticsRouter } from "./routes/analytics-router";
 import { categoryRouter } from "./routes/category-router";
 import { orderRouter } from "./routes/order-router";
 import { positionRouter } from "./routes/position-router";
-import bodyParser from "body-parser";
 
 const app = express();
 const port = 5000;
+
+app.use(morgan("dev"));
+app.use(cors());
 
 app.get("/", (req: Request, res: Response) => {
   const helloMessage = "Afs-service works!";
