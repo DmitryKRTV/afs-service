@@ -1,16 +1,16 @@
 const __products = [
   { id: 1, title: "tomato" },
   { id: 2, title: "orange" },
-];
+]
 export const authRepository = {
   async findProducts(title: string | null | undefined): Promise<ProductType[]> {
-    const filter: any = {};
+    const filter: any = {}
     if (title) {
-      filter.title = { $regex: title };
+      filter.title = { $regex: title }
     }
-    return [];
+    return []
   },
-};
+}
 
 export type ProductType = {
   id: number;

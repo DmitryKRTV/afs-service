@@ -1,4 +1,4 @@
-import { model, Schema, Types } from "mongoose";
+import { model, Schema, Types } from "mongoose"
 
 interface Category {
   name: string;
@@ -19,6 +19,6 @@ const categorySchema = new Schema<Category>({
     type: Schema.Types.ObjectId,
     ref: "users",
   },
-});
+})
 
-export const Categories = model<Category>("categories", categorySchema);
+export const Category = model<Category>("categories", categorySchema)

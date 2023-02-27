@@ -1,4 +1,4 @@
-import { model, Schema, Types } from "mongoose";
+import { model, Schema, Types } from "mongoose"
 
 interface Order {
   date?: Date;
@@ -39,6 +39,6 @@ const orderSchema = new Schema<Order>({
     type: Schema.Types.ObjectId,
     ref: "users",
   },
-});
+})
 
-export const Orders = model<Order>("orders", orderSchema);
+export const Order = model<Order>("orders", orderSchema)

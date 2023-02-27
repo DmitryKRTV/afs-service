@@ -1,4 +1,4 @@
-import { model, Schema, Types } from "mongoose";
+import { model, Schema, Types } from "mongoose"
 
 interface Position {
   name: string;
@@ -24,6 +24,6 @@ const positionSchema = new Schema<Position>({
     type: Schema.Types.ObjectId,
     ref: "users",
   },
-});
+})
 
-export const Positions = model<Position>("positions", positionSchema);
+export const Position = model<Position>("positions", positionSchema)
