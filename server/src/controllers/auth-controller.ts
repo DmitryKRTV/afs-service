@@ -1,16 +1,37 @@
 import { Request, Response } from "express"
 import { User } from "../models/User.model"
 import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
 
 export const authController = {
-  login(req: Request, res: Response) {
-    res.status(200).json({
-      login: {
-        email: req.body.email,
-        password: req.body.password,
-      },
+  async login(req: Request, res: Response) {
+    const candidate = await User.findOne({
+      email: req.body.email,
     })
+    if (candidate) {
+      const passwordResult = bcrypt.compareSync(req.body.password, candidate.password)
+      if (passwordResult) {
+        const token = jwt.sign({
+          email: candidate.email,
+          userId: candidate._id
+        }, process.env.JWT || "AFS", { expiresIn: 3600 })
+
+        res.status(200).json({
+          token: `Bearer ${token}`
+        })
+
+      } else {
+        res.status(401).json({
+          message: "User not found"
+        })
+      }
+    } else {
+      res.status(404).json({
+        message: "User not found"
+      })
+    }
   },
+
   async register(req: Request, res: Response) {
     const candidate = await User.findOne({
       email: req.body.email,

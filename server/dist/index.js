@@ -46,11 +46,13 @@ const category_router_1 = require("./routes/category-router");
 const order_router_1 = require("./routes/order-router");
 const position_router_1 = require("./routes/position-router");
 const db_1 = require("./repositories/db");
+const passport_1 = __importDefault(require("passport"));
 dotenv.config();
 const app = (0, express_1.default)();
 const port = 5000;
 app.use((0, morgan_1.default)("dev"));
 app.use((0, cors_1.default)());
+app.use(passport_1.default.initialize());
 app.get("/", (req, res) => {
     const helloMessage = "Afs-service works!";
     res.status(200).send(helloMessage);

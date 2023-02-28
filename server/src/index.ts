@@ -9,6 +9,7 @@ import { categoryRouter } from "./routes/category-router"
 import { orderRouter } from "./routes/order-router"
 import { positionRouter } from "./routes/position-router"
 import { runDb } from "./repositories/db"
+import passport from "passport"
 
 dotenv.config()
 const app = express()
@@ -16,6 +17,7 @@ const port = 5000
 
 app.use(morgan("dev"))
 app.use(cors())
+app.use(passport.initialize())
 
 app.get("/", (req: Request, res: Response) => {
   const helloMessage = "Afs-service works!"
