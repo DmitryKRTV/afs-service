@@ -20,6 +20,7 @@ app.use(morgan("dev"))
 app.use(cors())
 app.use(passport.initialize())
 createJwtMiddleware()
+app.use('/src/uploads', express.static('src/uploads'))
 
 app.get("/", (req: Request, res: Response) => {
   const helloMessage = "Afs-service works!"

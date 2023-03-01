@@ -1,7 +1,7 @@
 import passport from "passport"
 import passportJwt from "passport-jwt"
 //strict code
-import mongoose from "mongoose"
+import mongoose, { Types } from "mongoose"
 import { TokenType } from "../models/Token.model"
 
 export const createJwtMiddleware = () => {
@@ -17,15 +17,19 @@ export const createJwtMiddleware = () => {
 
   passport.use(new JwtStrategy(options, async (jwt_payload: TokenType, done) => {
     try {
-      const user = await User.findById(jwt_payload.userId).select("email id")
-
+      const user: UserDB = await User.findById(jwt_payload.userId).select("email id")
       if (user) {
-        done(null, user)
+        return done(null, user)
       } else {
-        done(null, false)
+        return done(null, false)
       }
     } catch (e) {
       console.log(e)
     }
   }))
+}
+
+export interface UserDB {
+  _id: Types.ObjectId
+  email: string
 }

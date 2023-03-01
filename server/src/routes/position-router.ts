@@ -1,9 +1,10 @@
-import { Router } from "express";
-import { positionController } from "../controllers/position-controller";
+import { Router } from "express"
+import { positionController } from "../controllers/position-controller"
+import passport from "passport"
 
-export const positionRouter = Router({});
+export const positionRouter = Router({})
 
-positionRouter.get("/:categoryId", positionController.getAll);
-positionRouter.post("/", positionController.create);
-positionRouter.patch("/:id", positionController.updateById);
-positionRouter.delete("/:id", positionController.removeById);
+positionRouter.get("/:categoryId", passport.authenticate('jwt', { session: false }), positionController.getByCategoryId)
+positionRouter.post("/", passport.authenticate('jwt', { session: false }), positionController.create)
+positionRouter.patch("/:id", passport.authenticate('jwt', { session: false }), positionController.updateById)
+positionRouter.delete("/:id", passport.authenticate('jwt', { session: false }), positionController.removeById)

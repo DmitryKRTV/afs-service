@@ -1,7 +1,8 @@
-import { Router } from "express";
-import { orderController } from "../controllers/order-controller";
+import { Router } from "express"
+import { orderController } from "../controllers/order-controller"
+import passport from "passport"
 
-export const orderRouter = Router({});
+export const orderRouter = Router({})
 
-orderRouter.get("/", orderController.getAll);
-orderRouter.post("/", orderController.create);
+orderRouter.get("/", passport.authenticate('jwt', { session: false }), orderController.getAll)
+orderRouter.post("/", passport.authenticate('jwt', { session: false }), orderController.create)
