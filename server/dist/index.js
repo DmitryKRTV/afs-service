@@ -47,12 +47,14 @@ const order_router_1 = require("./routes/order-router");
 const position_router_1 = require("./routes/position-router");
 const db_1 = require("./repositories/db");
 const passport_1 = __importDefault(require("passport"));
+const passport_2 = require("./middlewares/passport");
 dotenv.config();
 const app = (0, express_1.default)();
 const port = 5000;
 app.use((0, morgan_1.default)("dev"));
 app.use((0, cors_1.default)());
 app.use(passport_1.default.initialize());
+(0, passport_2.createJwtMiddleware)();
 app.get("/", (req, res) => {
     const helloMessage = "Afs-service works!";
     res.status(200).send(helloMessage);

@@ -10,6 +10,7 @@ import { orderRouter } from "./routes/order-router"
 import { positionRouter } from "./routes/position-router"
 import { runDb } from "./repositories/db"
 import passport from "passport"
+import { createJwtMiddleware } from "./middlewares/passport"
 
 dotenv.config()
 const app = express()
@@ -18,6 +19,7 @@ const port = 5000
 app.use(morgan("dev"))
 app.use(cors())
 app.use(passport.initialize())
+createJwtMiddleware()
 
 app.get("/", (req: Request, res: Response) => {
   const helloMessage = "Afs-service works!"
