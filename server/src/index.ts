@@ -30,11 +30,11 @@ app.get("/", (req: Request, res: Response) => {
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-app.use("/auth", authRouter)
-app.use("/analytics", analyticsRouter)
-app.use("/category", categoryRouter)
-app.use("/order", orderRouter)
-app.use("/position", positionRouter)
+app.use("/api/auth", authRouter)
+app.use("/api/analytics", analyticsRouter)
+app.use("/api/category", categoryRouter)
+app.use("/api/order", orderRouter)
+app.use("/api/position", positionRouter)
 
 const startApp = async () => {
   await runDb()
