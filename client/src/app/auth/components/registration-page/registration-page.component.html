@@ -1,16 +1,48 @@
-<div class="card">
+<form (ngSubmit)="onRegistrationSubmit()" [formGroup]="loginFrom" class="card">
   <div class="card-content">
     <span class="card-title">Создать аккаунт</span>
     <div class="input-field">
-      <input id="email" required type="email" />
+      <input
+        [ngClass]="{ invalid: email!.invalid && (email!.dirty || email!.touched) }"
+        formControlName="email"
+        id="email"
+        required
+        type="email"
+      />
       <label for="email">Email:</label>
+      <div *ngIf="email!.invalid && (email!.dirty || email!.touched)" class="helper-text red-text">
+        <div *ngIf="email!.errors?.['required']">Email обязателен</div>
+        <div *ngIf="email!.errors?.['pattern']">Некорректный email</div>
+      </div>
     </div>
     <div class="input-field">
-      <input id="password" required type="password" />
+      <input
+        [ngClass]="{ invalid: password!.invalid && (password!.dirty || password!.touched) }"
+        formControlName="password"
+        id="password"
+        required
+        type="password"
+      />
       <label for="password">Пароль:</label>
+      <div
+        *ngIf="password!.invalid && (password!.dirty || password!.touched)"
+        class="helper-text red-text"
+      >
+        <div *ngIf="password!.errors?.['required']">Пароль обязателен</div>
+        <div *ngIf="password!.errors?.['minlength']">
+          Пароль должен быть более {{password!.errors?.['minlength']['requiredLength']}} символов,
+          сейчас {{password!.errors?.['minlength']['actualLength']}}
+        </div>
+      </div>
     </div>
   </div>
   <div class="card-action">
-    <button class="modal-action btn waves-effect">Создать</button>
+    <button
+      [disabled]="loginFrom.invalid || loginFrom.disabled"
+      class="modal-action btn waves-effect"
+      type="submit"
+    >
+      Создать
+    </button>
   </div>
-</div>
+</form>

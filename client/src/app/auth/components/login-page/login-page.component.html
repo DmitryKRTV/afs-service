@@ -37,7 +37,11 @@
     </div>
   </div>
   <div class="card-action">
-    <button [disabled]="loginFrom.invalid" class="modal-action btn waves-effect" type="submit">
+    <button
+      [disabled]="loginFrom.invalid || loginFrom.disabled"
+      class="modal-action btn waves-effect"
+      type="submit"
+    >
       Войти
     </button>
   </div>

@@ -62,11 +62,11 @@ app.get("/", (req, res) => {
 });
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use(body_parser_1.default.json());
-app.use("/auth", auth_router_1.authRouter);
-app.use("/analytics", analytics_router_1.analyticsRouter);
-app.use("/category", category_router_1.categoryRouter);
-app.use("/order", order_router_1.orderRouter);
-app.use("/position", position_router_1.positionRouter);
+app.use("/api/auth", auth_router_1.authRouter);
+app.use("/api/analytics", analytics_router_1.analyticsRouter);
+app.use("/api/category", category_router_1.categoryRouter);
+app.use("/api/order", order_router_1.orderRouter);
+app.use("/api/position", position_router_1.positionRouter);
 const startApp = () => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, db_1.runDb)();
     app.listen(port, () => {
