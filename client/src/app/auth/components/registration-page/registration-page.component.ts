@@ -1,16 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnDestroy } from '@angular/core'
 import { catchError, EMPTY, SubscriptionLike } from 'rxjs'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { AuthService } from '../../../core/services/auth.service'
 import { ActivatedRoute, Router } from '@angular/router'
 import { HttpErrorResponse } from '@angular/common/http'
+import { MaterialService } from '../../../shared/services/material.service'
 
 @Component({
   selector: 'afs-registration-page',
   templateUrl: './registration-page.component.html',
   styleUrls: ['./registration-page.component.css'],
 })
-export class RegistrationPageComponent implements OnInit, OnDestroy {
+export class RegistrationPageComponent implements OnDestroy {
   subscriptions$: SubscriptionLike[] = []
   loginFrom = new FormGroup({
     email: new FormControl<string>('', {
@@ -29,7 +30,8 @@ export class RegistrationPageComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private materialService: MaterialService
   ) {}
 
   get email() {
@@ -38,14 +40,6 @@ export class RegistrationPageComponent implements OnInit, OnDestroy {
 
   get password() {
     return this.loginFrom.get('password')
-  }
-
-  ngOnInit(): void {
-    if (this.route.snapshot.queryParamMap.get('registered')) {
-      //Можно зайти
-    } else if (this.route.snapshot.queryParamMap.get('accessDenied')) {
-      //Зарегеистрируйтесь
-    }
   }
 
   onRegistrationSubmit() {
@@ -73,7 +67,7 @@ export class RegistrationPageComponent implements OnInit, OnDestroy {
   }
 
   private errorHandler(error: HttpErrorResponse) {
-    console.log('error')
+    this.materialService.toast(error.error.message)
     return EMPTY
   }
 }

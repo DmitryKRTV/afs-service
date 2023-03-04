@@ -4,6 +4,7 @@ import { AuthService } from '../../../core/services/auth.service'
 import { catchError, EMPTY, SubscriptionLike } from 'rxjs'
 import { ActivatedRoute, Router } from '@angular/router'
 import { HttpErrorResponse } from '@angular/common/http'
+import { MaterialService } from '../../../shared/services/material.service'
 
 @Component({
   selector: 'afs-login-page',
@@ -29,7 +30,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private materialService: MaterialService
   ) {}
 
   get email() {
@@ -42,9 +44,11 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.route.snapshot.queryParamMap.get('registered')) {
-      //Можно зайти
+      this.materialService.toast('Введите данные для входа в систему.')
     } else if (this.route.snapshot.queryParamMap.get('accessDenied')) {
-      //Зарегеистрируйтесь
+      this.materialService.toast('Необходимо зарегистрироваться!')
+    } else if (this.route.snapshot.queryParamMap.get('sessionFailed')) {
+      this.materialService.toast('Время доступа в систему истекло, пожалуйста, войдите заново.')
     }
   }
 
@@ -68,7 +72,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   private errorHandler(error: HttpErrorResponse) {
-    console.log('error')
+    this.materialService.toast(error.error.message)
     return EMPTY
   }
 }
