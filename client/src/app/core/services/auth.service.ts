@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return !!this.token
+    return !!this.getToken()
   }
 
   logout() {
