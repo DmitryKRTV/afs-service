@@ -1,0 +1,28 @@
+.a-sidenav {
+  transform: translateX(0) !important;
+  width: 250px !important
+}
+
+.a-sidenav h4 {
+  padding: 0 30px;
+  opacity: .8;
+  font-size: 2rem
+}
+
+.a-sidenav .bold.last {
+  position: absolute;
+  bottom: 62px;
+  width: 100%
+}
+
+main, footer {
+  margin-left: 250px
+}
+
+.content {
+  padding: 0 30px
+}
+
+.btn-floating.tap-target-origin {
+  background-color: #bdbdbd !important
+}

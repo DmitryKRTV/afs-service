@@ -46,7 +46,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     if (this.route.snapshot.queryParamMap.get('registered')) {
       this.materialService.toast('Введите данные для входа в систему.')
     } else if (this.route.snapshot.queryParamMap.get('accessDenied')) {
-      this.materialService.toast('Необходимо зарегистрироваться!')
+      this.materialService.toast('Необходимо войти в систему!')
     } else if (this.route.snapshot.queryParamMap.get('sessionFailed')) {
       this.materialService.toast('Время доступа в систему истекло, пожалуйста, войдите заново.')
     }
@@ -60,7 +60,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         .login(values)
         .pipe(catchError(this.errorHandler.bind(this)))
         .subscribe(() => {
-          this.router.navigate(['/'])
+          this.router.navigate(['/overview'])
         })
     )
     this.loginFrom.enable()
