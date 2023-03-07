@@ -1,0 +1,29 @@
+.page-subtitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0
+}
+
+.page-subtitle h4 {
+  margin: 0;
+  font-size: 2rem
+}
+
+#create-modal {
+  max-width: 500px
+}
+
+.collection-item-icon {
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10
+}
+
+.collection-item-icon i.material-icons:hover {
+  color: #f44336 !important;
+  transition: .3s color
+}
+

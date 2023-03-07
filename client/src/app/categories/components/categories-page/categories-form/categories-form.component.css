@@ -8,5 +8,14 @@
 .page-title a {
   color: black;
   opacity: .8
+
 }
 
+.page-title h3, .page-title h4 {
+  margin: 0;
+  font-size: 2.3rem
+}
+
+.mb2 {
+  margin-bottom: 20px;
+}

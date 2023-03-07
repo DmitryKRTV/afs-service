@@ -5,12 +5,22 @@
   </button>
 </div>
 
-<div *ngIf="!isLoading" class="row">
+<div *ngIf="categories$ | async as categories; else loader" class="row">
   <div class="col s12">
-    <div class="collection">
-      <a *ngFor="let category of categories" class="collection-item">{{ category.name }}</a>
+    <div *ngIf="categories.length !== 0; else empty" class="collection">
+      <a
+        *ngFor="let category of categories"
+        [routerLink]="['/categories/new', category._id]"
+        class="collection-item"
+        >{{ category.name }}</a
+      >
     </div>
+    <ng-template #empty>
+      <div class="center">Категорий не найдено</div>
+    </ng-template>
   </div>
 </div>
 
-<afs-loader *ngIf="isLoading"></afs-loader>
+<ng-template #loader>
+  <afs-loader></afs-loader>
+</ng-template>
