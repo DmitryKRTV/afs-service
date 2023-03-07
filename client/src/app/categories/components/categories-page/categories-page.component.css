@@ -1,0 +1,24 @@
+.page-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 0
+}
+
+.page-title a {
+  color: black;
+  opacity: .8
+}
+
+.collection-item-icon {
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10
+}
+
+.collection-item-icon i.material-icons:hover {
+  color: #f44336 !important;
+  transition: .3s color
+}

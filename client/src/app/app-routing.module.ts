@@ -17,6 +17,21 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./overview/overview.module').then(m => m.OverviewModule),
   },
+  {
+    path: 'analytics',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./analytics/analytics.module').then(m => m.AnalyticsModule),
+  },
+  {
+    path: 'history',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./history/history.module').then(m => m.HistoryModule),
+  },
+  {
+    path: 'order',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./order/order.module').then(m => m.OrderModule),
+  },
 ]
 
 @NgModule({
