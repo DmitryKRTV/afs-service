@@ -19,3 +19,22 @@
 .mb2 {
   margin-bottom: 20px;
 }
+
+.dn {
+  display: none;
+}
+
+.h200 {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+.mt-media {
+  margin-top: 0;
+}
+
+@media screen and (max-width: 992px) {
+  .mt-media {
+    margin-top: 20px;
+  }
+}

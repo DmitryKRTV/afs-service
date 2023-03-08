@@ -60,13 +60,20 @@ export const categoryController = {
           name: req.body.name,
           imageSrc: ''
         }
+
         if (req.file) {
           updated.imageSrc = req.file.path
+        } else {
+          const category = await Category.findById(req.params.id)
+          if (category?.imageSrc) {
+            updated.imageSrc = category.imageSrc
+          }
         }
-        const categories = await Category.findOneAndUpdate({ id: req.params.id },
+        const category = await Category.findOneAndUpdate(
+          { _id: req.params.id },
           { $set: updated },
           { new: true })
-        res.status(200).json(categories)
+        res.status(200).json(category)
       } else {
         throw new Error('Error occurred')
       }

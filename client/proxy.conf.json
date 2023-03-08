@@ -5,7 +5,7 @@
     "lowLevel": "debug",
     "changeOrigin": true
   },
-  "/uploads/*": {
+  "/src/uploads/*": {
     "target": "http://localhost:5000",
     "secure": false,
     "lowLevel": "debug",
