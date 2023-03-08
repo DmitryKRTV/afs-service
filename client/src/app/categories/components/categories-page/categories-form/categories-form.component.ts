@@ -1,8 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
-import { ActivatedRoute, Params } from '@angular/router'
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core'
+import { ActivatedRoute, Params, Router } from '@angular/router'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { CategoriesService } from '../../../services/categories.service'
-import { catchError, EMPTY, of, switchMap } from 'rxjs'
+import { catchError, EMPTY, of, SubscriptionLike, switchMap } from 'rxjs'
 import { MaterialService } from '../../../../shared/services/material.service'
 import { HttpErrorResponse } from '@angular/common/http'
 import { Category } from '../../../models/categories.model'
@@ -12,12 +12,13 @@ import { Category } from '../../../models/categories.model'
   templateUrl: './categories-form.component.html',
   styleUrls: ['./categories-form.component.css'],
 })
-export class CategoriesFormComponent implements OnInit {
+export class CategoriesFormComponent implements OnInit, OnDestroy {
   @ViewChild('input') inputRef!: ElementRef
   isNew = true
   image!: File
   imagePreview!: string | undefined
   category!: Category
+  subscriptions$: SubscriptionLike[] = []
 
   form = new FormGroup({
     name: new FormControl<string | null>(null, {
@@ -28,7 +29,8 @@ export class CategoriesFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private categoriesService: CategoriesService,
-    private materialService: MaterialService
+    private materialService: MaterialService,
+    private router: Router
   ) {}
 
   get name() {
@@ -37,28 +39,30 @@ export class CategoriesFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form.disable()
-    this.route.params
-      .pipe(
-        switchMap((params: Params) => {
-          if (params['id']) {
-            this.isNew = false
-            return this.categoriesService.getById(params['id'])
+    this.subscriptions$.push(
+      this.route.params
+        .pipe(
+          switchMap((params: Params) => {
+            if (params['id']) {
+              this.isNew = false
+              return this.categoriesService.getById(params['id'])
+            }
+            return of(null)
+          }),
+          catchError(this.errorHandler.bind(this))
+        )
+        .subscribe(category => {
+          if (category) {
+            this.category = category
+            this.form.patchValue({
+              name: category.name,
+            })
+            this.imagePreview = category.imageSrc
+            this.materialService.updateTextFields()
           }
-          return of(null)
-        }),
-        catchError(this.errorHandler.bind(this))
-      )
-      .subscribe(category => {
-        if (category) {
-          this.category = category
-          this.form.patchValue({
-            name: category.name,
-          })
-          this.imagePreview = category.imageSrc
-          this.materialService.updateTextFields()
-        }
-        this.form.enable()
-      })
+          this.form.enable()
+        })
+    )
   }
 
   triggerClick() {
@@ -91,17 +95,37 @@ export class CategoriesFormComponent implements OnInit {
       }
     }
     if (obs$) {
-      obs$.pipe(catchError(this.errorHandler.bind(this))).subscribe(
-        category => {
-          this.category = category
-          this.materialService.toast('Изменения сохранены')
-          this.form.enable()
-        },
-        () => {
-          this.form.enable()
-        }
+      this.subscriptions$.push(
+        obs$.pipe(catchError(this.errorHandler.bind(this))).subscribe(
+          category => {
+            this.category = category
+            this.materialService.toast('Изменения сохранены')
+            this.form.enable()
+          },
+          () => {
+            this.form.enable()
+          }
+        )
       )
     }
+  }
+
+  deleteCategory() {
+    const decision = window.confirm(`Вы уверены что хотите удалить категорию ${this.category.name}`)
+    if (decision && this.category._id) {
+      this.subscriptions$.push(
+        this.categoriesService.delete(this.category._id).subscribe(
+          response => this.materialService.toast(response.message),
+          error => this.materialService.toast(error.message),
+          () => this.router.navigate(['/categories'])
+        )
+      )
+    }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions$.forEach(subscription$ => subscription$.unsubscribe())
+    this.subscriptions$ = []
   }
 
   private errorHandler(error: HttpErrorResponse) {
