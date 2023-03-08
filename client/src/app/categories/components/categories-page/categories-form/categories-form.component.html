@@ -56,4 +56,4 @@
   </div>
 </div>
 
-<!--<afs-positions-form></afs-positions-form>-->
+<afs-positions-form *ngIf="category?._id" [categoryId]="category._id"></afs-positions-form>
