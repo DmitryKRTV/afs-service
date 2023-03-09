@@ -1,0 +1,44 @@
+.page-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 0
+}
+
+.page-title a {
+  color: black;
+  opacity: .8
+}
+
+#create-modal {
+  max-width: 500px
+}
+
+.page-title h3, .page-title h4 {
+  margin: 0;
+  font-size: 2.3rem
+}
+
+.page-subtitle h4 {
+  margin: 0;
+  font-size: 2rem
+}
+
+.mb1 {
+  margin-bottom: 10px
+}
+
+.order-summary {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 20px;
+  padding-right: 30px
+}
+
+.order-summary p {
+  margin-bottom: 0 !important
+}
+
+.pointer {
+  cursor: pointer;
+}

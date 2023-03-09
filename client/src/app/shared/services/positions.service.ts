@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { Observable } from 'rxjs'
+import { BehaviorSubject, map, Observable } from 'rxjs'
 import { Position } from '../models/position.model'
 import { Message } from '../models/categories.model'
 
@@ -8,7 +8,33 @@ import { Message } from '../models/categories.model'
   providedIn: 'root',
 })
 export class PositionsService {
+  orderPositions$ = new BehaviorSubject<Position[]>([])
+
   constructor(private http: HttpClient) {}
+
+  clearOrderPositions() {
+    this.orderPositions$.next(
+      this.orderPositions$.getValue().map(p => ({
+        ...p,
+        quantity: 0,
+      }))
+    )
+  }
+
+  fetchForOrder(categoryId: string) {
+    this.fetch(categoryId)
+      .pipe(
+        map((positions: Position[]) => {
+          return positions.map(p => ({
+            ...p,
+            quantity: 0,
+          }))
+        })
+      )
+      .subscribe((positions: Position[]) => {
+        this.orderPositions$.next(positions)
+      })
+  }
 
   fetch(categoryId: string): Observable<Position[]> {
     return this.http.get<Position[]>(`api/position/${categoryId}`)

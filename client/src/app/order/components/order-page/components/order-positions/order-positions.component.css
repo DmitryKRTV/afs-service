@@ -1,0 +1,16 @@
+.input-field {
+  width: 45% !important;
+  min-width: 120px;
+  margin-right: 20px !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important
+}
+
+.order-position-input {
+  margin-top: 0;
+  margin-bottom: 0
+}
+
+.order-position-input input {
+  margin-bottom: 0 !important
+}

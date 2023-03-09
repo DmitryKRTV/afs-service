@@ -7,8 +7,8 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core'
-import { PositionsService } from '../../../../../services/positions.service'
-import { Position } from '../../../../../models/position.model'
+import { PositionsService } from '../../../../../../shared/services/positions.service'
+import { Position } from '../../../../../../shared/models/position.model'
 import {
   MaterialInstance,
   MaterialService,

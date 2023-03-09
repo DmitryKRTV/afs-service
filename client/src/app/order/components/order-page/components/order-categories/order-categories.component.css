@@ -1,0 +1,25 @@
+.order-img {
+  margin-top: 10px;
+  height: 100px !important
+}
+
+.frow {
+  display: flex;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto
+}
+
+.order-row {
+  flex-wrap: wrap
+}
+
+.order-row .card {
+  width: 30%;
+  min-width: 175px;
+  margin-right: 20px
+}
+
+.m0 {
+  margin: 0
+}

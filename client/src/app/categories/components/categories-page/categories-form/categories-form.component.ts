@@ -1,11 +1,11 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { CategoriesService } from '../../../services/categories.service'
+import { CategoriesService } from '../../../../shared/services/categories.service'
 import { catchError, EMPTY, of, SubscriptionLike, switchMap } from 'rxjs'
 import { MaterialService } from '../../../../shared/services/material.service'
 import { HttpErrorResponse } from '@angular/common/http'
-import { Category } from '../../../models/categories.model'
+import { Category } from '../../../../shared/models/categories.model'
 
 @Component({
   selector: 'afs-categories-form',
