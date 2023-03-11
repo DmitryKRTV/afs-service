@@ -1,0 +1,58 @@
+.filter {
+  margin-bottom: 15px
+}
+
+.fr {
+  display: flex;
+  margin-bottom: 15px
+}
+
+.fr .col.order {
+  width: 120px
+}
+
+.fr .col.filter-pickers {
+  padding: 0 20px;
+  width: 40%;
+  display: flex
+}
+
+.fr .col.filter-pickers .input-field {
+  width: 45% !important;
+  min-width: 120px;
+  margin-right: 20px !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important
+}
+
+.fr .col.range {
+  width: 40%;
+  padding-top: 44px
+}
+
+.order-row {
+  flex-wrap: wrap
+}
+
+.order-row .card {
+  width: 30%;
+  min-width: 175px;
+  margin-right: 20px
+}
+
+.order-img {
+  height: 100px !important
+}
+
+.order-position-input {
+  margin-top: 0;
+  margin-bottom: 0
+}
+
+.order-position-input input {
+  margin-bottom: 0 !important
+}
+
+#create-modal {
+  max-width: 500px
+}

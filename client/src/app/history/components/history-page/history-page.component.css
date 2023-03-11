@@ -1,0 +1,15 @@
+.page-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 0
+}
+
+.page-title a {
+  color: black;
+  opacity: .8
+}
+
+.mb2 {
+  margin-bottom: 20px
+}
