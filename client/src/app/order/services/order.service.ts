@@ -19,24 +19,19 @@ export class OrderService {
       quantity: position.quantity ? position.quantity : 0,
       _id: position._id,
     }
-
     const list = this.list$.getValue()
-
     const candidate = list.find(p => p._id === position._id)
-
     if (candidate) {
       candidate.quantity += orderPosition.quantity
       this.list$.next(list)
     } else {
       this.list$.next([orderPosition, ...list])
     }
-
     this.computePrice()
   }
 
   remove(item: OrderPosition) {
     this.list$.next(this.list$.getValue().filter(p => p._id !== item._id))
-
     this.computePrice()
   }
 

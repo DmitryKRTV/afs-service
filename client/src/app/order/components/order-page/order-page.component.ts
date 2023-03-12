@@ -17,10 +17,8 @@ export class OrderPageComponent implements OnInit, OnDestroy, AfterViewInit {
   ifRoot = false
   @ViewChild('modal') modalRef!: ElementRef
   subscriptions$: SubscriptionLike[] = []
-
   orderList$!: Observable<OrderPosition[]>
   orderPrice$!: Observable<number>
-
   pending = false
 
   constructor(

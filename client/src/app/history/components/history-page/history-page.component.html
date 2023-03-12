@@ -13,8 +13,29 @@
 </div>
 
 <afs-history-filter *ngIf="filterVisibility"></afs-history-filter>
-<afs-history-list></afs-history-list>
 
-<div class="center mb2">
-  <button class="btn waves-effect grey darken-1 btn-small">Загрузить еще</button>
-</div>
+<ng-container *ngIf="!reloading; else reloadingBlock">
+  <ng-container *ngIf="ordersList.length !== 0; else emptyBlock">
+    <afs-history-list [ordersList]="ordersList"></afs-history-list>
+    <div class="center mb2 mt2">
+      <button
+        (click)="loadMore()"
+        *ngIf="!loading; else loader"
+        [disabled]="noMoreOrders"
+        class="btn waves-effect grey darken-1 btn-small"
+      >
+        Загрузить еще
+      </button>
+      <ng-template #loader>
+        <afs-loader></afs-loader>
+      </ng-template>
+    </div>
+  </ng-container>
+  <ng-template #emptyBlock>
+    <div class="center">Заказов нет</div>
+  </ng-template>
+</ng-container>
+
+<ng-template #reloadingBlock>
+  <afs-loader></afs-loader>
+</ng-template>

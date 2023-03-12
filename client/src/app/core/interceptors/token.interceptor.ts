@@ -42,6 +42,10 @@ export class TokenInterceptor implements HttpInterceptor {
       this.materialService.toast('Сервер не отвечает. Пожалуйста, обратитесь к администратору.')
       return EMPTY
     }
+    if (error.status === 500) {
+      this.materialService.toast('Ошибка сервера. Пожалуйста, обратитесь к администратору.')
+      return EMPTY
+    }
     this.materialService.toast('Ошибка сети. Проверьте подключение к интернету.')
     return EMPTY
   }
