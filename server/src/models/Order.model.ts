@@ -1,6 +1,6 @@
 import { model, Schema, Types } from 'mongoose'
 
-interface Order {
+export interface Order {
   date?: Date;
   order: number;
   list: Types.Array<ListItem>;
@@ -10,7 +10,7 @@ interface Order {
 interface ListItem {
   name: string;
   quantity: number;
-  const: number;
+  cost: number;
 }
 
 const orderSchema = new Schema<Order>({
