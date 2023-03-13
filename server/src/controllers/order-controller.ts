@@ -25,8 +25,6 @@ export const orderController = {
         if (req.query.order) {
           query.order = +req.query.order
         }
-        console.log(query)
-        console.log(req.query.limit)
         const orders = await Order
           .find(query)
           .sort({ date: -1 })

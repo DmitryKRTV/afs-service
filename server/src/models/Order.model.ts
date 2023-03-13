@@ -1,4 +1,4 @@
-import { model, Schema, Types } from "mongoose"
+import { model, Schema, Types } from 'mongoose'
 
 interface Order {
   date?: Date;
@@ -16,29 +16,28 @@ interface ListItem {
 const orderSchema = new Schema<Order>({
   date: {
     type: Date,
-    default: Date.now,
+    default: Date.now
   },
   order: {
     type: Number,
-    required: true,
+    required: true
   },
   list: [
     {
       name: {
-        type: String,
+        type: String
       },
       quantity: {
-        type: Number,
+        type: Number
       },
-      const: {
-        type: Number,
-      },
-    },
+      cost: {
+        type: Number
+      }
+    }
   ],
   user: {
     type: Schema.Types.ObjectId,
-    ref: "users",
-  },
+    ref: 'users'
+  }
 })
-
-export const Order = model<Order>("orders", orderSchema)
+export const Order = model<Order>('orders', orderSchema)

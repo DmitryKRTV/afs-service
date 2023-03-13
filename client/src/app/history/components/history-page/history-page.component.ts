@@ -58,7 +58,10 @@ export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subscriptions$.push(
       this.ordersService.fetch(params).subscribe(orders => {
         this.ordersList = this.ordersList.concat(orders)
-        this.noMoreOrders = orders.length < STEP
+        if (orders.length < STEP) {
+          this.noMoreOrders = true
+          this.materialService.toast('Заказов более не найдено')
+        }
         this.loading = false
         this.reloading = false
       })
