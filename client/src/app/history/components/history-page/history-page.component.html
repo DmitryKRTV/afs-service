@@ -3,7 +3,7 @@
   <button
     #tooltip
     (click)="isFilterVisible()"
-    [ngClass]="{ active: filterVisibility }"
+    [ngClass]="{ active: filterVisibility, red: isFiltered() }"
     class="btn btn-small"
     data-position="left"
     data-tooltip="Открыть фильтр"
@@ -12,7 +12,7 @@
   </button>
 </div>
 
-<afs-history-filter *ngIf="filterVisibility"></afs-history-filter>
+<afs-history-filter (OnFilter)="applyFilter($event)" *ngIf="filterVisibility"></afs-history-filter>
 
 <ng-container *ngIf="!reloading; else reloadingBlock">
   <ng-container *ngIf="ordersList.length !== 0; else emptyBlock">

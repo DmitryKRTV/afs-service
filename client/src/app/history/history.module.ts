@@ -5,9 +5,10 @@ import { HistoryPageComponent } from './components/history-page/history-page.com
 import { HistoryListComponent } from './components/history-page/components/history-list/history-list.component'
 import { HistoryFilterComponent } from './components/history-page/components/history-filter/history-filter.component'
 import { CoreModule } from '../core/core.module'
+import { FormsModule } from '@angular/forms'
 
 @NgModule({
   declarations: [HistoryPageComponent, HistoryListComponent, HistoryFilterComponent],
-  imports: [CommonModule, HistoryRoutingModule, CoreModule],
+  imports: [CommonModule, HistoryRoutingModule, CoreModule, FormsModule],
 })
 export class HistoryModule {}

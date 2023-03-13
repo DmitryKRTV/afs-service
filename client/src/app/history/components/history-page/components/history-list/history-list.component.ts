@@ -25,7 +25,6 @@ export class HistoryListComponent implements OnDestroy, AfterViewInit {
 
   computePrice(order: Order): number {
     return order.list.reduce((acc, curr) => {
-      console.log(curr)
       return (acc += curr.quantity * curr.cost)
     }, 0)
   }

@@ -8,6 +8,10 @@ export interface MaterialInstance {
   destroy: () => void
 }
 
+export interface MaterialDatePicker extends MaterialInstance {
+  date?: Date
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -30,5 +34,13 @@ export class MaterialService {
 
   initTooltip(ref: ElementRef): MaterialInstance {
     return M.Tooltip.init(ref.nativeElement)
+  }
+
+  initDatePicker(ref: ElementRef, onClose: () => void): MaterialDatePicker {
+    return M.Datepicker.init(ref.nativeElement, {
+      format: 'dd.mm.yyyy',
+      showClearButton: true,
+      onClose,
+    })
   }
 }

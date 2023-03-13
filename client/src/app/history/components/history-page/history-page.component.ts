@@ -3,6 +3,7 @@ import { MaterialInstance, MaterialService } from '../../../shared/services/mate
 import { OrdersService } from '../../../shared/services/orders.service'
 import { SubscriptionLike } from 'rxjs'
 import { Order } from '../../../shared/models/order.model'
+import { Filter } from '../../../shared/models/filter.model'
 
 const STEP = 2
 
@@ -19,6 +20,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
   limit = STEP
   subscriptions$: SubscriptionLike[] = []
   ordersList: Order[] = []
+  filter: Filter = {}
   loading = false
   reloading = false
   noMoreOrders = false
@@ -50,14 +52,27 @@ export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.fetchOrders()
   }
 
+  applyFilter(filter: Filter) {
+    this.ordersList = []
+    this.offset = 0
+    this.filter = filter
+    this.reloading = true
+    this.fetchOrders()
+  }
+
+  isFiltered(): boolean {
+    return Object.keys(this.filter).length !== 0
+  }
+
   private fetchOrders() {
-    const params = {
+    const params = Object.assign({}, this.filter, {
       offset: this.offset,
       limit: this.limit,
-    }
+    })
     this.subscriptions$.push(
       this.ordersService.fetch(params).subscribe(orders => {
         this.ordersList = this.ordersList.concat(orders)
+        this.noMoreOrders = false
         if (orders.length < STEP) {
           this.noMoreOrders = true
           this.materialService.toast('Заказов более не найдено')
