@@ -8,7 +8,7 @@ export const analyticsController = {
   async overview(req: Request, res: Response) {
     try {
       if (hasUser(req)) {
-        const allOrders = await Order.find({ user: req.user._id }).sort('1')
+        const allOrders = await Order.find({ user: req.user._id }).sort({ data: 1 })
         const ordersMap = getOrdersMap(allOrders)
         const yesterdayOrders = ordersMap[moment().add(-1, 'd').format('DD.MM.YYYY')] || []
         // Total orders amount committed yesterday
@@ -53,9 +53,6 @@ export const analyticsController = {
     } catch (e) {
       errorHandler(res, e)
     }
-    res.status(200).json({
-      overview: true
-    })
   },
   analytics(req: Request, res: Response) {
     res.status(200).json({
