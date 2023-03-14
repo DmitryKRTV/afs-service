@@ -54,10 +54,28 @@ export const analyticsController = {
       errorHandler(res, e)
     }
   },
-  analytics(req: Request, res: Response) {
-    res.status(200).json({
-      analytics: true
-    })
+  async analytics(req: Request, res: Response) {
+    try {
+      if (hasUser(req)) {
+        const allOrders = await Order.find({ user: req.user._id }).sort({ date: 1 })
+        const ordersMap: DaysOrder = getOrdersMap(allOrders)
+        const averageCheck = +(calculatePrice(allOrders) / Object.keys(ordersMap).length).toFixed(2)
+        //Graph data
+        const chart = Object.keys(ordersMap).map(date => {
+          const margin = calculatePrice(ordersMap[date])
+          const order = ordersMap[date].length
+          return { date, margin, order }
+        })
+        res.status(200).json({
+          average: averageCheck,
+          chart
+        })
+      } else {
+        throw new Error('Error occurred')
+      }
+    } catch (e) {
+      errorHandler(res, e)
+    }
   }
 }
 
@@ -77,10 +95,6 @@ function getOrdersMap(orders: Order[] = []): DaysOrder {
   return daysOrder
 }
 
-interface DaysOrder {
-  [key: string]: Order[];
-}
-
 function calculatePrice(orders: Order[] = []): number {
   return orders.reduce((total, order) => {
     const orderPrice = order.list.reduce((orderTotal, item) => {
@@ -88,4 +102,8 @@ function calculatePrice(orders: Order[] = []): number {
     }, 0)
     return total += orderPrice
   }, 0)
+}
+
+interface DaysOrder {
+  [key: string]: Order[];
 }

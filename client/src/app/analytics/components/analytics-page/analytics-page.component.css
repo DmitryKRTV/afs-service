@@ -1,0 +1,25 @@
+.page-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 0
+}
+
+.page-title a {
+  color: black;
+  opacity: .8
+}
+
+.average-price {
+  padding: 15px 0;
+  font-size: 20px
+}
+
+.analytics-block {
+  width: 100%;
+  height: 300px
+}
+
+.pb3 {
+  padding-bottom: 30px
+}

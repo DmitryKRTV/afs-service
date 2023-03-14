@@ -9,3 +9,14 @@ export interface OverviewPageItem {
   yesterday: number
   isHigher: number
 }
+
+export interface Analytics {
+  average: number
+  chart: Chart[]
+}
+
+interface Chart {
+  date: string
+  margin: number
+  order: number
+}
