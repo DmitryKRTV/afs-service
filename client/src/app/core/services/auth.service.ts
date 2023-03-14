@@ -3,20 +3,17 @@ import { LoginResponse, User } from '../models/auth.model'
 import { HttpClient } from '@angular/common/http'
 import { Observable, tap } from 'rxjs'
 import { Router } from '@angular/router'
-import { environment } from '../../../environments/environment'
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private token: string | null = null
-  private domain = environment.domain
 
   constructor(private http: HttpClient, private router: Router) {}
 
   login(user: Partial<User>): Observable<{ token: string }> {
-    console.log(this.domain)
-    return this.http.post<{ token: string }>(`${this.domain}/api/auth/login`, user).pipe(
+    return this.http.post<{ token: string }>(`/api/auth/login`, user).pipe(
       tap(({ token }: LoginResponse) => {
         localStorage.setItem('auth-token', token)
         this.setToken(token)
@@ -43,6 +40,6 @@ export class AuthService {
   }
 
   registration(user: Partial<User>): Observable<User> {
-    return this.http.post<User>(`${this.domain}/api/auth/register`, user)
+    return this.http.post<User>(`/api/auth/register`, user)
   }
 }
