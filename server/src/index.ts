@@ -18,6 +18,7 @@ const port = 5000
 app.use(morgan('dev'))
 app.use(cors({
   origin: 'afs-service-client.vercel.app',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true
 }))
 app.use(passport.initialize())
