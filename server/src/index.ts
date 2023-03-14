@@ -17,9 +17,10 @@ const app = express()
 const port = 5000
 app.use(morgan('dev'))
 app.use(cors({
-  origin: 'afs-service-client.vercel.app',
+  origin: ['https://afs-service-client.vercel.app'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true
+  'preflightContinue': false,
+  'optionsSuccessStatus': 204
 }))
 app.use(passport.initialize())
 createJwtMiddleware()
