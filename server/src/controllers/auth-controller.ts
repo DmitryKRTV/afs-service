@@ -10,8 +10,6 @@ export const authController = {
     const candidate = await User.findOne({
       email: req.body.email
     })
-    console.log(candidate)
-    console.log(process.env.JWT)
     if (candidate) {
       const passwordResult = bcrypt.compareSync(req.body.password, candidate.password)
       if (passwordResult) {
