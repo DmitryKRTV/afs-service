@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  domain: 'afs-service.vercel.app',
+  domain: 'https://afs-service-qi94o03ez-dmitrykrtv.vercel.app',
 }

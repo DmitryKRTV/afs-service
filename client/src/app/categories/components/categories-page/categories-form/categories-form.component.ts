@@ -6,6 +6,7 @@ import { catchError, EMPTY, of, SubscriptionLike, switchMap } from 'rxjs'
 import { MaterialService } from '../../../../shared/services/material.service'
 import { HttpErrorResponse } from '@angular/common/http'
 import { Category } from '../../../../shared/models/categories.model'
+import { environment } from '../../../../../environments/environment'
 
 @Component({
   selector: 'afs-categories-form',
@@ -19,7 +20,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
   imagePreview!: string | undefined
   category!: Category
   subscriptions$: SubscriptionLike[] = []
-
+  domain = environment.domain
   form = new FormGroup({
     name: new FormControl<string | null>(null, {
       validators: [Validators.required],
@@ -57,7 +58,7 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
             this.form.patchValue({
               name: category.name,
             })
-            this.imagePreview = category.imageSrc
+            this.imagePreview = `${this.domain}/` + category.imageSrc
             this.materialService.updateTextFields()
           }
           this.form.enable()
@@ -76,7 +77,6 @@ export class CategoriesFormComponent implements OnInit, OnDestroy {
     reader.onload = () => {
       this.imagePreview = reader.result as string
     }
-
     reader.readAsDataURL(file)
   }
 

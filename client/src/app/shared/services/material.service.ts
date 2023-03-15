@@ -1,4 +1,5 @@
 import { ElementRef, Injectable } from '@angular/core'
+import { environment } from '../../../environments/environment'
 
 declare let M: any
 
@@ -16,6 +17,8 @@ export interface MaterialDatePicker extends MaterialInstance {
   providedIn: 'root',
 })
 export class MaterialService {
+  private domain = environment.domain
+
   toast(message: string) {
     M.toast({ html: message })
   }

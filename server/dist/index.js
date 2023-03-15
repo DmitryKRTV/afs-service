@@ -51,22 +51,28 @@ const passport_2 = require("./middlewares/passport");
 dotenv.config();
 const app = (0, express_1.default)();
 const port = 5000;
-app.use((0, morgan_1.default)("dev"));
-app.use((0, cors_1.default)());
+app.use((0, morgan_1.default)('dev'));
+app.use((0, cors_1.default)({
+    // origin: ['https://afs-service-client.vercel.app'],
+    origin: ['http://localhost:4200'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    'preflightContinue': false,
+    'optionsSuccessStatus': 204
+}));
 app.use(passport_1.default.initialize());
 (0, passport_2.createJwtMiddleware)();
 app.use('/src/uploads', express_1.default.static('src/uploads'));
-app.get("/", (req, res) => {
-    const helloMessage = "Afs-service works!";
+app.get('/', (req, res) => {
+    const helloMessage = 'Afs-service works!';
     res.status(200).send(helloMessage);
 });
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use(body_parser_1.default.json());
-app.use("/api/auth", auth_router_1.authRouter);
-app.use("/api/analytics", analytics_router_1.analyticsRouter);
-app.use("/api/category", category_router_1.categoryRouter);
-app.use("/api/order", order_router_1.orderRouter);
-app.use("/api/position", position_router_1.positionRouter);
+app.use('/api/auth', auth_router_1.authRouter);
+app.use('/api/analytics', analytics_router_1.analyticsRouter);
+app.use('/api/category', category_router_1.categoryRouter);
+app.use('/api/order', order_router_1.orderRouter);
+app.use('/api/position', position_router_1.positionRouter);
 const startApp = () => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, db_1.runDb)();
     app.listen(port, () => {

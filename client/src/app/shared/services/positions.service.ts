@@ -3,12 +3,14 @@ import { HttpClient } from '@angular/common/http'
 import { BehaviorSubject, map, Observable } from 'rxjs'
 import { Position } from '../models/position.model'
 import { Message } from '../models/categories.model'
+import { environment } from '../../../environments/environment'
 
 @Injectable({
   providedIn: 'root',
 })
 export class PositionsService {
   orderPositions$ = new BehaviorSubject<Position[]>([])
+  private domain = environment.domain
 
   constructor(private http: HttpClient) {}
 
@@ -37,18 +39,18 @@ export class PositionsService {
   }
 
   fetch(categoryId: string): Observable<Position[]> {
-    return this.http.get<Position[]>(`api/position/${categoryId}`)
+    return this.http.get<Position[]>(`${this.domain}/api/position/${categoryId}`)
   }
 
   create(position: Partial<Position>): Observable<Position> {
-    return this.http.post<Position>(`api/position/`, position)
+    return this.http.post<Position>(`${this.domain}/api/position/`, position)
   }
 
   update(position: Partial<Position>): Observable<Position> {
-    return this.http.patch<Position>(`api/position/${position._id}`, position)
+    return this.http.patch<Position>(`${this.domain}/api/position/${position._id}`, position)
   }
 
   delete(position: Partial<Position>): Observable<Message> {
-    return this.http.delete<Message>(`api/position/${position._id}`)
+    return this.http.delete<Message>(`${this.domain}/api/position/${position._id}`)
   }
 }
