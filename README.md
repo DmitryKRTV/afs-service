@@ -1,6 +1,6 @@
 ## AFS-Service
 
-This is the **Fullstack** app that implements simple CMS with CRUD operations and where I practice new technologies and architectures.
+This is the **Fullstack** app that implements simple CRM system with CRUD operations and where I practice new technologies and architectures.
 
 ## Link
 
